@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -360,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
        
         // Grille des catégories
-        Container(
+        SizedBox(
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -446,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
        
         // Liste horizontale des promotions
-        Container(
+        SizedBox(
           height: 120,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

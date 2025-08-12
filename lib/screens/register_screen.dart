@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -33,20 +35,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     // Vérification que tous les champs obligatoires sont remplis
     if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      _showSnackBar('Veuillez remplir tous les champs obligatoires', false);
+      _showSnackBar('Please Fill all the Fields!', false);
       return;
     }
 
     // Validation de la longueur du nom
     if (name.length < 2) {
-      _showSnackBar('Le nom doit contenir au moins 2 caractères', false);
+      _showSnackBar('The Username must contain at least 2 characters', false);
       return;
     }
 
     // Validation du format email avec regex
     final emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
     if (!emailRegex.hasMatch(email)) {
-      _showSnackBar('Format email invalide', false);
+      _showSnackBar('Invalid Email Format', false);
       return;
     }
 
@@ -54,26 +56,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (phone.isNotEmpty) {
       final phoneRegex = RegExp(r'^\+?[0-9]{8,15}$');
       if (!phoneRegex.hasMatch(phone)) {
-        _showSnackBar('Format de téléphone invalide', false);
+        _showSnackBar('Invalid Phone Number', false);
         return;
       }
     }
 
     // Validation de la longueur du mot de passe
     if (password.length < 6) {
-      _showSnackBar('Le mot de passe doit contenir au moins 6 caractères', false);
+      _showSnackBar('The Password mush contain at least 6 characters', false);
       return;
     }
 
     // Vérification que les mots de passe correspondent
     if (password != confirmPassword) {
-      _showSnackBar('Les mots de passe ne correspondent pas', false);
+      _showSnackBar('Passwords do not match', false);
       return;
     }
 
     // Vérification de l'acceptation des conditions
     if (!_acceptTerms) {
-      _showSnackBar('Veuillez accepter les conditions d\'utilisation', false);
+      _showSnackBar('Accepting the terms is required', false);
       return;
     }
 
