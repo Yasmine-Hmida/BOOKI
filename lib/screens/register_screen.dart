@@ -92,6 +92,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+  void _handleGoogleSignUp() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Google Sign Up - Feature Coming Soon!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Color(0xFF99582a),
+      ),
+    );
+  }
+
+  void _handleFacebookSignUp() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Facebook Sign Up - Feature Coming Soon!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Color(0xFF99582a),
+      ),
+    );
+  }
+
   // Méthode utilitaire pour afficher les messages
   void _showSnackBar(String message, bool isSuccess) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -137,6 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final width = size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       // Couleur de fond avec dégradé identique au login
       body: Container(
         width: double.infinity,
@@ -154,90 +185,87 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
         child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.08),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'BO',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF4C260B),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Text(
-                              'OK',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF99582a),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Text(
-                              'I',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF4C260B),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Your gateway to the best book offers',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'RobotoLight',
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 76, 38, 11),
-                          ),
-                        ),
-
-                        const SizedBox(height: 32),
-
-                        _buildRegisterCard(width),
-
-                        _buildLoginLink(),
-                      ],
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: width * 0.08),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/BOOKI_Icon.png',
+                      width: 24,
+                      height: 80,
                     ),
+
+                    const Text(
+                      'BO',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF4C260B),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Text(
+                      'OK',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF99582a),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Text(
+                      'I',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF4C260B),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 4),
+                const Text(
+                  'Your gateway to the best book offers',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'RobotoLight',
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 76, 38, 11),
                   ),
                 ),
-              );
-            },
+                const SizedBox(height: 32),
+                _buildRegisterCard(width),
+                _buildSocialLoginSection(),
+                _buildLoginLink(),
+                SizedBox(height: MediaQuery.of(context).viewInsets.bottom > 0 ? 20 : 0),
+              ],
+            ),
           ),
         ),
       ),
@@ -249,10 +277,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Container(
       width: double.infinity,
       // Padding interne de la carte
-      padding: const EdgeInsets.all(30),
-      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.only(bottom: 20, left: 0, right: 0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(192, 253, 240, 213),
+        color: const Color.fromARGB(129, 253, 240, 213),
         borderRadius: BorderRadius.circular(15),
         // Ombre portée pour la carte
         boxShadow: [
@@ -271,28 +299,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: const Text(
               'Sign Up',
               style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                fontWeight: FontWeight.w800,
                 color: Color(0xFF99582a),
               ),
             ),
           ),
-
-          const SizedBox(height: 6),
-
-          // Message d'accueil
-          Center(
-            child: const Text(
-              'Create your account to benefit from our offres',
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'RobotoLight',
-                fontWeight: FontWeight.w900,
-                color: Color.fromARGB(255, 76, 38, 11),
-              ),
-            ),
-          ),
-
           const SizedBox(height: 24),
 
           // Champ nom complet
@@ -313,7 +325,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           // Champ confirmation mot de passe
           _buildConfirmPasswordField(),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
           // Case à cocher pour les conditions
           _buildTermsCheckbox(),
@@ -322,6 +334,119 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           // Bouton d'inscription
           _buildRegisterButton(width),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialLoginSection() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        children: [
+          // "Or" divider
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Or',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'RobotoLight',
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 76, 38, 11),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+         
+          // Social login text
+          const Text(
+            'Sign Up with Google or Facebook',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+              color: Color.fromARGB(255, 76, 38, 11),
+            ),
+          ),
+          const SizedBox(height: 20),
+         
+          // Social login buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Google button
+              Container(
+                margin: const EdgeInsets.only(right: 12),
+                child: ElevatedButton(
+                  onPressed: _handleGoogleSignUp,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.g_mobiledata_rounded,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+             
+              // Facebook button
+              Container(
+                margin: const EdgeInsets.only(left: 12),
+                child: ElevatedButton(
+                  onPressed: _handleFacebookSignUp,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.facebook,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -368,7 +493,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             // Padding interne du champ réduit
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             // Bordure normale
             border: OutlineInputBorder(
@@ -427,7 +552,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -493,7 +618,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -560,7 +685,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             // Padding interne du champ
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             // Bordure normale
             border: OutlineInputBorder(
@@ -633,7 +758,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildRegisterButton(double width) {
     return SizedBox(
       width: double.infinity,
-      height: 60,
+      height: 52,
       child: ElevatedButton(
         onPressed: _handleRegister,
         style: ElevatedButton.styleFrom(
@@ -653,8 +778,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: TextStyle(
                 fontSize: 23,
                 color: Color.fromARGB(208, 255, 242, 226),
-                fontFamily: 'RobotoLight',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ],

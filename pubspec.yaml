@@ -97,6 +97,10 @@ flutter:
       fonts:
         - asset: assets/fonts/RobotoCondensed-Black.ttf
 
+    - family: RobotoSemiBold
+      fonts:
+        - asset: assets/fonts/RobotoCondensed-SemiBold.ttf  
+
   assets:
     - assets/images/BOOKI_Icon.png
   #

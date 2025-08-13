@@ -81,6 +81,36 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _handleGoogleSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Google Sign In - Feature Coming Soon!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Color(0xFF99582a),
+      ),
+    );
+  }
+
+  void _handleFacebookSignIn() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Facebook Sign In - Feature Coming Soon!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Color(0xFF99582a),
+      ),
+    );
+  }
+
   void _toggleShowPassword() {
     setState(() {
       _showPassword = !_showPassword;
@@ -97,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final width = size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -112,93 +143,87 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.08),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/images/BOOKI_Icon.png',
-                              width: 30, // set width
-                              height: 80, // set height
-                            ),
-
-                            const Text(
-                              'BO',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF4C260B),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Text(
-                              'OK',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF99582a),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Text(
-                              'I',
-                              style: TextStyle(
-                                fontSize: 70,
-                                fontFamily: 'Rubik',
-                                color: Color(0xFF4C260B),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(2, 2),
-                                    blurRadius: 4,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 4),
-                        const Text(
-                          'Your gateway to the best book offers',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'RobotoLight',
-                            fontWeight: FontWeight.w900,
-                            color: Color.fromARGB(255, 76, 38, 11),
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-                        _buildLoginCard(width),
-                        _buildRegisterLink(),
-                      ],
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: width * 0.08),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/BOOKI_Icon.png',
+                      width: 24,
+                      height: 80,
                     ),
+
+                    const Text(
+                      'BO',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF4C260B),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Text(
+                      'OK',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF99582a),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Text(
+                      'I',
+                      style: TextStyle(
+                        fontSize: 70,
+                        fontFamily: 'Rubik',
+                        color: Color(0xFF4C260B),
+                        shadows: [
+                          Shadow(
+                            offset: Offset(2, 2),
+                            blurRadius: 4,
+                            color: Colors.black26,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 4),
+                const Text(
+                  'Your gateway to the best book offers',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'RobotoLight',
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 76, 38, 11),
                   ),
                 ),
-              );
-            },
+                const SizedBox(height: 32),
+                _buildLoginCard(width),
+                _buildSocialLoginSection(),
+                _buildRegisterLink(),
+                SizedBox(height: MediaQuery.of(context).viewInsets.bottom > 0 ? 20 : 0),
+              ],
+            ),
           ),
         ),
       ),
@@ -211,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(192, 253, 240, 213),
+        color: const Color.fromARGB(129, 253, 240, 213),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -228,30 +253,131 @@ class _LoginScreenState extends State<LoginScreen> {
             child: const Text(
               'Sign In',
               style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                fontWeight: FontWeight.w800,
                 color: Color(0xFF99582a),
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          Center(
-            child: const Text(
-              'Login to Discover our Best Book Offres',
-              style: TextStyle(
-                fontSize: 17,
-                fontFamily: 'RobotoLight',
-                fontWeight: FontWeight.w900,
-                color: Color.fromARGB(255, 76, 38, 11),
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 30),
           _buildEmailField(),
-          const SizedBox(height: 20),
+          const SizedBox(height: 22),
           _buildPasswordField(),
           const SizedBox(height: 32),
           _buildLoginButton(width),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialLoginSection() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        children: [
+          // "Or" divider
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14),
+                child: Text(
+                  'Or',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'RobotoLight',
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 76, 38, 11),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+         
+          // Social login text
+          const Text(
+            'Sign In with Google or Facebook',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+              color: Color.fromARGB(255, 76, 38, 11),
+            ),
+          ),
+          const SizedBox(height: 20),
+         
+          // Social login buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Google button
+              Container(
+                margin: const EdgeInsets.only(right: 12),
+                child: ElevatedButton(
+                  onPressed: _handleGoogleSignIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.g_mobiledata_rounded,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+             
+              // Facebook button
+              Container(
+                margin: const EdgeInsets.only(left: 12),
+                child: ElevatedButton(
+                  onPressed: _handleFacebookSignIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.facebook,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -289,7 +415,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -353,7 +479,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 12,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -377,7 +503,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLoginButton(double width) {
     return SizedBox(
       width: double.infinity,
-      height: 60,
+      height: 52,
       child: ElevatedButton(
         onPressed: _handleLogin,
         style: ElevatedButton.styleFrom(
@@ -395,9 +521,9 @@ class _LoginScreenState extends State<LoginScreen> {
               'Sign In',
               style: TextStyle(
                 fontSize: 25,
-                color: Color.fromARGB(208, 255, 242, 226),
-                fontFamily: 'RobotoLight',
-                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(170, 255, 242, 226),
+                // fontFamily: 'RobotoSemiBold',
+                fontWeight: FontWeight.w800,
               ),
             ),
           ],
