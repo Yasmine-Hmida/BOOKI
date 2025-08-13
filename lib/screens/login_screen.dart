@@ -21,7 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please Fill all the Fields'),
+          content: Text(
+            'Please Fill all the Fields',
+            style: TextStyle(
+              color: Color.fromARGB(208, 255, 242, 226),
+              fontSize: 20,
+            ),
+          ),
           backgroundColor: Color(0xFF99582a),
         ),
       );
@@ -32,17 +38,29 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!emailRegex.hasMatch(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Invalid Email Format'),
+          content: Text(
+            'Invalid Email Format',
+            style: TextStyle(
+              color: Color.fromARGB(208, 255, 242, 226),
+              fontSize: 20,
+            ),
+          ),
           backgroundColor: Color(0xFF99582a),
         ),
       );
       return;
     }
 
-    if (email == 'test@barchadills.com' && password == '123456') {
+    if (email == 'test@booki.com' && password == '123456') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login Done Successfully! Welcome to Booki'),
+          content: Text(
+            'Login Done Successfully! Welcome to Booki',
+            style: TextStyle(
+              color: Color.fromARGB(208, 255, 242, 226),
+              fontSize: 20,
+            ),
+          ),
           backgroundColor: Color.fromARGB(255, 113, 168, 136),
         ),
       );
@@ -50,7 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Email ou password Incorrect'),
+          content: Text(
+            'Email ou password Incorrect',
+            style: TextStyle(
+              color: Color.fromARGB(208, 255, 242, 226),
+              fontSize: 20,
+            ),
+          ),
           backgroundColor: Color(0xFF99582a),
         ),
       );
@@ -101,6 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            Image.asset(
+                              'assets/images/BOOKI_Icon.png',
+                              width: 30, // set width
+                              height: 80, // set height
+                            ),
+
                             const Text(
                               'BO',
                               style: TextStyle(
@@ -178,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLoginCard(double width) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(35),
+      padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
         color: const Color.fromARGB(192, 253, 240, 213),
@@ -198,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: const Text(
               'Sign In',
               style: TextStyle(
-                fontSize: 40,
+                fontSize: 35,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF99582a),
               ),
@@ -362,19 +392,13 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Text(
-              'Login',
+              'Sign In',
               style: TextStyle(
                 fontSize: 25,
                 color: Color.fromARGB(208, 255, 242, 226),
                 fontFamily: 'RobotoLight',
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            SizedBox(width: 8),
-            Icon(
-              Icons.arrow_forward,
-              color: Color.fromARGB(208, 255, 242, 226),
-              size: 20,
             ),
           ],
         ),
@@ -400,7 +424,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Text(
-              'Register',
+              'Sign Up',
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'RobotoLight',

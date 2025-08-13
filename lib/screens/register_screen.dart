@@ -15,7 +15,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   // Variables pour contrôler la visibilité des mots de passe
   bool _showPassword = false;
@@ -34,7 +35,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final confirmPassword = _confirmPasswordController.text;
 
     // Vérification que tous les champs obligatoires sont remplis
-    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    if (name.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       _showSnackBar('Please Fill all the Fields!', false);
       return;
     }
@@ -80,8 +84,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     // Si toutes les validations passent, inscription réussie
-    _showSnackBar('Inscription réussie! Bienvenue sur BarchaDills 🎉', true);
-   
+    _showSnackBar('Account saved successfully! Welcome to BOOKI', true);
+
     // Simulation d'un délai puis navigation vers l'écran de connexion
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/login');
@@ -92,13 +96,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _showSnackBar(String message, bool isSuccess) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
-        backgroundColor: isSuccess ? const Color(0xFF27AE60) : const Color(0xFFE74C3C),
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: isSuccess
+            ? const Color.fromARGB(255, 113, 168, 136)
+            : const Color(0xFF99582a),
         duration: const Duration(seconds: 3),
       ),
     );
   }
- 
+
   // Méthode pour basculer la visibilité du mot de passe
   void _toggleShowPassword() {
     setState(() {
@@ -123,7 +135,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // Récupération des dimensions de l'écran
     final size = MediaQuery.of(context).size;
     final width = size.width;
-    final height = size.height;
 
     return Scaffold(
       // Couleur de fond avec dégradé identique au login
@@ -136,92 +147,99 @@ class _RegisterScreenState extends State<RegisterScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFFFF6B6B), // Rose corail
-              Color(0xFFFF8E8E), // Rose plus clair
-              Color(0xFFFFB8B8), // Rose très clair
+              Color.fromARGB(255, 205, 125, 68),
+              Color(0xFFf2cc8f),
+              Color(0xFFFDF0D5),
             ],
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            // Padding global pour l'écran
-            padding: EdgeInsets.symmetric(horizontal: width * 0.08),
-            child: Column(
-              children: [
-                // Section du haut avec logo et titre
-                _buildHeader(height),
-               
-                // Section du formulaire avec carte blanche
-                _buildRegisterCard(width),
-               
-                // Lien vers la connexion
-                _buildLoginLink(),
-               
-                // Espacement pour éviter que le contenu soit coupé
-                const SizedBox(height: 20),
-              ],
-            ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: width * 0.08),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Text(
+                              'BO',
+                              style: TextStyle(
+                                fontSize: 70,
+                                fontFamily: 'Rubik',
+                                color: Color(0xFF4C260B),
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(2, 2),
+                                    blurRadius: 4,
+                                    color: Colors.black26,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              'OK',
+                              style: TextStyle(
+                                fontSize: 70,
+                                fontFamily: 'Rubik',
+                                color: Color(0xFF99582a),
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(2, 2),
+                                    blurRadius: 4,
+                                    color: Colors.black26,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Text(
+                              'I',
+                              style: TextStyle(
+                                fontSize: 70,
+                                fontFamily: 'Rubik',
+                                color: Color(0xFF4C260B),
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(2, 2),
+                                    blurRadius: 4,
+                                    color: Colors.black26,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Your gateway to the best book offers',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'RobotoLight',
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromARGB(255, 76, 38, 11),
+                          ),
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        _buildRegisterCard(width),
+
+                        _buildLoginLink(),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
-      ),
-    );
-  }
-
-  // Construction de l'en-tête avec logo et titre (identique au login)
-  Widget _buildHeader(double height) {
-    return Container(
-      // Espacement vertical plus petit pour l'inscription (plus de contenu)
-      padding: EdgeInsets.symmetric(vertical: height * 0.04),
-      child: Column(
-        children: [
-          // Logo de l'application (icône shopping bag)
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              // Ombre portée pour le logo
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.shopping_bag,
-              size: 50,
-              color: Color(0xFFFF6B6B),
-            ),
-          ),
-         
-          const SizedBox(height: 20),
-         
-          // Titre de l'application
-          const Text(
-            'BarchaDills',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              letterSpacing: 1.2,
-            ),
-          ),
-         
-          const SizedBox(height: 6),
-         
-          // Sous-titre pour l'inscription
-          const Text(
-            'Rejoignez notre communauté shopping',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white70,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -231,15 +249,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Container(
       width: double.infinity,
       // Padding interne de la carte
-      padding: const EdgeInsets.all(28),
+      padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        color: const Color.fromARGB(192, 253, 240, 213),
+        borderRadius: BorderRadius.circular(15),
         // Ombre portée pour la carte
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: const Color.fromARGB(255, 231, 172, 78).withOpacity(0.1),
             blurRadius: 20,
             spreadRadius: 5,
           ),
@@ -249,58 +267,59 @@ class _RegisterScreenState extends State<RegisterScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Titre de la section inscription
-          const Text(
-            'Inscription',
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF2C3E50),
+          Center(
+            child: const Text(
+              'Sign Up',
+              style: TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF99582a),
+              ),
             ),
           ),
-         
+
           const SizedBox(height: 6),
-         
+
           // Message d'accueil
-          const Text(
-            'Créez votre compte pour profiter de toutes nos offres',
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF7F8C8D),
+          Center(
+            child: const Text(
+              'Create your account to benefit from our offres',
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: 'RobotoLight',
+                fontWeight: FontWeight.w900,
+                color: Color.fromARGB(255, 76, 38, 11),
+              ),
             ),
           ),
-         
+
           const SizedBox(height: 24),
-         
+
           // Champ nom complet
           _buildNameField(),
-         
-          const SizedBox(height: 16),
-         
+
+          const SizedBox(height: 18),
+
           // Champ email
           _buildEmailField(),
-         
-          const SizedBox(height: 16),
-         
-          // Champ téléphone (optionnel)
-          _buildPhoneField(),
-         
-          const SizedBox(height: 16),
-         
+
+          const SizedBox(height: 18),
+
           // Champ mot de passe
           _buildPasswordField(),
-         
-          const SizedBox(height: 16),
-         
+
+          const SizedBox(height: 18),
+
           // Champ confirmation mot de passe
           _buildConfirmPasswordField(),
-         
+
           const SizedBox(height: 20),
-         
+
           // Case à cocher pour les conditions
           _buildTermsCheckbox(),
-         
+
           const SizedBox(height: 24),
-         
+
           // Bouton d'inscription
           _buildRegisterButton(width),
         ],
@@ -315,48 +334,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
       children: [
         // Label du champ
         const Text(
-          'Nom complet',
+          'Username',
           style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2C3E50),
+            fontSize: 20,
+            fontFamily: 'RobotoLight',
+            fontWeight: FontWeight.w900,
+            color: Colors.black87,
           ),
         ),
-       
+
         const SizedBox(height: 6),
-       
+
         // Champ de saisie nom
         TextField(
           controller: _nameController,
           decoration: InputDecoration(
-            hintText: 'Entrez votre nom complet',
-            hintStyle: const TextStyle(color: Color(0xFFBDC3C7), fontSize: 14),
+            hintText: 'Username',
+            hintStyle: const TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+            ),
             filled: true,
-            fillColor: const Color(0xFFF8F9FA),
+            fillColor: const Color.fromARGB(195, 239, 221, 184),
+
             // Icône personne à gauche
             prefixIcon: const Icon(
               Icons.person_outline,
-              color: Color(0xFFFF6B6B),
-              size: 20,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 28,
             ),
             // Padding interne du champ réduit
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 14,
+              vertical: 16,
             ),
             // Bordure normale
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
-                color: Color(0xFFE8E8E8),
-                width: 1,
+                color: Color.fromARGB(201, 231, 111, 81),
+                width: 2,
               ),
             ),
             // Bordure en focus
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
-                color: Color(0xFFFF6B6B),
+                color: Color.fromARGB(255, 76, 38, 11),
                 width: 2,
               ),
             ),
@@ -372,50 +398,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label du champ
         const Text(
           'Email',
           style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2C3E50),
+            fontSize: 20,
+            fontFamily: 'RobotoLight',
+            fontWeight: FontWeight.w900,
+            color: Colors.black87,
           ),
         ),
-       
-        const SizedBox(height: 6),
-       
-        // Champ de saisie email
+        const SizedBox(height: 8),
         TextField(
           controller: _emailController,
           decoration: InputDecoration(
-            hintText: 'Entrez votre email',
-            hintStyle: const TextStyle(color: Color(0xFFBDC3C7), fontSize: 14),
+            hintText: 'Email',
+            hintStyle: const TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+            ),
             filled: true,
-            fillColor: const Color(0xFFF8F9FA),
-            // Icône email à gauche
+            fillColor: const Color.fromARGB(195, 239, 221, 184),
             prefixIcon: const Icon(
               Icons.email_outlined,
-              color: Color(0xFFFF6B6B),
-              size: 20,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 28,
             ),
-            // Padding interne du champ
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 14,
+              vertical: 16,
             ),
-            // Bordure normale
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: Color(0xFFE8E8E8),
+                color: Color.fromARGB(201, 231, 111, 81),
                 width: 1,
               ),
             ),
-            // Bordure en focus
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: Color(0xFFFF6B6B),
+                color: Color.fromARGB(255, 76, 38, 11),
                 width: 2,
               ),
             ),
@@ -428,136 +452,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  // Construction du champ téléphone
-  Widget _buildPhoneField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Label du champ avec indication optionnel
-        const Row(
-          children: [
-            Text(
-              'Téléphone',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF2C3E50),
-              ),
-            ),
-            SizedBox(width: 4),
-            Text(
-              '(optionnel)',
-              style: TextStyle(
-                fontSize: 11,
-                color: Color(0xFF7F8C8D),
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
-        ),
-       
-        const SizedBox(height: 6),
-       
-        // Champ de saisie téléphone
-        TextField(
-          controller: _phoneController,
-          decoration: InputDecoration(
-            hintText: '+216 XX XXX XXX',
-            hintStyle: const TextStyle(color: Color(0xFFBDC3C7), fontSize: 14),
-            filled: true,
-            fillColor: const Color(0xFFF8F9FA),
-            // Icône téléphone à gauche
-            prefixIcon: const Icon(
-              Icons.phone_outlined,
-              color: Color(0xFFFF6B6B),
-              size: 20,
-            ),
-            // Padding interne du champ
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
-            // Bordure normale
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Color(0xFFE8E8E8),
-                width: 1,
-              ),
-            ),
-            // Bordure en focus
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Color(0xFFFF6B6B),
-                width: 2,
-              ),
-            ),
-          ),
-          keyboardType: TextInputType.phone,
-        ),
-      ],
-    );
-  }
-
   // Construction du champ mot de passe
   Widget _buildPasswordField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label du champ
         const Text(
-          'Mot de passe',
+          'Password',
           style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2C3E50),
+            color: Colors.black87,
+            fontSize: 18,
+            fontFamily: 'RobotoLight',
+            fontWeight: FontWeight.w900,
           ),
         ),
-       
-        const SizedBox(height: 6),
-       
-        // Champ de saisie mot de passe
+        const SizedBox(height: 8),
         TextField(
           controller: _passwordController,
           decoration: InputDecoration(
-            hintText: 'Choisissez un mot de passe',
-            hintStyle: const TextStyle(color: Color(0xFFBDC3C7), fontSize: 14),
+            hintText: 'Password',
+            hintStyle: const TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+            ),
             filled: true,
-            fillColor: const Color(0xFFF8F9FA),
-            // Icône cadenas à gauche
+            fillColor: const Color.fromARGB(195, 239, 221, 184),
             prefixIcon: const Icon(
               Icons.lock_outline,
-              color: Color(0xFFFF6B6B),
-              size: 20,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 28,
             ),
-            // Bouton pour afficher/masquer le mot de passe
             suffixIcon: IconButton(
               icon: Icon(
                 _showPassword ? Icons.visibility : Icons.visibility_off,
-                color: const Color(0xFFBDC3C7),
-                size: 20,
+                color: const Color.fromARGB(255, 177, 140, 81),
               ),
               onPressed: _toggleShowPassword,
             ),
-            // Padding interne du champ
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 14,
+              vertical: 16,
             ),
-            // Bordure normale
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Color(0xFFE8E8E8),
-                width: 1,
-              ),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1),
             ),
-            // Bordure en focus
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: Color(0xFFFF6B6B),
+                color: Color.fromARGB(255, 76, 38, 11),
                 width: 2,
               ),
             ),
@@ -576,57 +521,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
       children: [
         // Label du champ
         const Text(
-          'Confirmer le mot de passe',
+          'Confirm Password',
           style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF2C3E50),
+            color: Colors.black87,
+            fontSize: 18,
+            fontFamily: 'RobotoLight',
+            fontWeight: FontWeight.w900,
           ),
         ),
-       
+
         const SizedBox(height: 6),
-       
+
         // Champ de confirmation mot de passe
         TextField(
           controller: _confirmPasswordController,
           decoration: InputDecoration(
-            hintText: 'Confirmez votre mot de passe',
-            hintStyle: const TextStyle(color: Color(0xFFBDC3C7), fontSize: 14),
+            hintText: 'Confirm Password',
+            hintStyle: const TextStyle(
+              color: Colors.black87,
+              fontSize: 18,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+            ),
             filled: true,
-            fillColor: const Color(0xFFF8F9FA),
-            // Icône cadenas à gauche
+            fillColor: const Color.fromARGB(195, 239, 221, 184),
             prefixIcon: const Icon(
               Icons.lock_outline,
-              color: Color(0xFFFF6B6B),
-              size: 20,
+              color: Color.fromARGB(255, 177, 140, 81),
             ),
             // Bouton pour afficher/masquer le mot de passe
             suffixIcon: IconButton(
               icon: Icon(
-                _showConfirmPassword ? Icons.visibility : Icons.visibility_off,
-                color: const Color(0xFFBDC3C7),
-                size: 20,
+                _showPassword ? Icons.visibility : Icons.visibility_off,
+                color: const Color.fromARGB(255, 177, 140, 81),
               ),
               onPressed: _toggleShowConfirmPassword,
             ),
             // Padding interne du champ
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 14,
+              vertical: 16,
             ),
             // Bordure normale
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Color(0xFFE8E8E8),
-                width: 1,
-              ),
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFFE8E8E8), width: 1),
             ),
-            // Bordure en focus
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
-                color: Color(0xFFFF6B6B),
+                color: Color.fromARGB(255, 76, 38, 11),
                 width: 2,
               ),
             ),
@@ -645,8 +589,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       children: [
         // Case à cocher personnalisée
         SizedBox(
-          width: 24,
-          height: 24,
+          width: 28,
+          height: 28,
           child: Checkbox(
             value: _acceptTerms,
             onChanged: (value) {
@@ -654,15 +598,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _acceptTerms = value ?? false;
               });
             },
-            activeColor: const Color(0xFFFF6B6B),
+            activeColor: Color.fromARGB(255, 76, 38, 11),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
           ),
         ),
-       
+
         const SizedBox(width: 8),
-       
+
         // Texte des conditions
         Expanded(
           child: GestureDetector(
@@ -672,10 +616,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               });
             },
             child: const Text(
-              'J\'accepte les conditions d\'utilisation et la politique de confidentialité',
+              'I agree to all our Terms, Privacy Policy and Cookies Policy',
               style: TextStyle(
-                fontSize: 12,
-                color: Color(0xFF7F8C8D),
+                fontSize: 15,
+                color: Color.fromARGB(255, 76, 38, 11),
                 height: 1.3,
               ),
             ),
@@ -689,15 +633,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildRegisterButton(double width) {
     return SizedBox(
       width: double.infinity,
-      height: 52,
+      height: 60,
       child: ElevatedButton(
         onPressed: _handleRegister,
         style: ElevatedButton.styleFrom(
-          // Couleur de fond du bouton
-          backgroundColor: const Color(0xFFFF6B6B),
+          backgroundColor: const Color(0xFF99582a),
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
           elevation: 0,
         ),
@@ -706,21 +649,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             // Texte du bouton
             Text(
-              'Créer mon compte',
+              'Create Account',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 23,
+                color: Color.fromARGB(208, 255, 242, 226),
+                fontFamily: 'RobotoLight',
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
-            ),
-           
-            SizedBox(width: 8),
-           
-            // Icône utilisateur
-            Icon(
-              Icons.person_add,
-              color: Colors.white,
-              size: 18,
             ),
           ],
         ),
@@ -739,21 +674,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             // Texte normal
             Text(
-              'Déjà un compte? ',
+              'Already have an account? ',
               style: TextStyle(
-                fontSize: 14,
-                color: Colors.white70,
+                fontSize: 18,
+                fontFamily: 'RobotoLight',
+                fontWeight: FontWeight.w900,
+                color: Color.fromARGB(255, 177, 140, 81),
               ),
             ),
             // Texte cliquable pour la connexion
             Text(
-              'Se connecter',
+              'Sign In',
               style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-                decorationColor: Colors.white,
+                fontSize: 18,
+                fontFamily: 'RobotoLight',
+                fontWeight: FontWeight.w900,
+                color: Color.fromARGB(255, 76, 38, 11),
               ),
             ),
           ],

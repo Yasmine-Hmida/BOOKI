@@ -96,6 +96,9 @@ flutter:
     - family: RobotoCondensed
       fonts:
         - asset: assets/fonts/RobotoCondensed-Black.ttf
+
+  assets:
+    - assets/images/BOOKI_Icon.png
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
