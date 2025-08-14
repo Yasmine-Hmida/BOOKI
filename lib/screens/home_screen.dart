@@ -72,9 +72,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           child: Column(
             children: [
               // Header Section
+              const SizedBox(height: 20),
               _buildHeader(),
               // Search Bar
               _buildSearchBar(),
+              const SizedBox(height: 10),
               // Hero Section
               _buildHeroSection(),
               // Circular Categories Section
@@ -254,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           _buildNavItem(Icons.home, 0, const HomeScreen()),
           _buildNavItem(Icons.search, 1, const CatagoryScreen()),
-          _buildSpecialNavItem(Icons.add, 2, const BestDealsScreen()),
+          _buildSpecialNavItem("assets/images/deal.png", 2, const BestDealsScreen()),
           _buildNavItem(Icons.shopping_cart_outlined, 3, const CartScreen()),
           _buildNavItem(Icons.person_outline, 4, const ProfileScreen()),
         ],
@@ -295,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildSpecialNavItem(IconData icon, int index, Widget page) {
+  Widget _buildSpecialNavItem(String icon, int index, Widget page) {
     bool isSelected = _selectedIndex == index;
 
     return GestureDetector(
@@ -327,12 +329,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ],
         ),
-        child: Icon(
+        child: Image.asset(
           icon,
           color: isSelected
               ? const Color.fromARGB(208, 255, 242, 226)
               : const Color.fromARGB(222, 76, 38, 11),
-          size: 24,
+          height:30,
+          width:30
         ),
       ),
     );
