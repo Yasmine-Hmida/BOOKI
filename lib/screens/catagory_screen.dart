@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import './cart_screen.dart';
 import './home_screen.dart';
-import './deals_screen.dart';
 import './profile_screen.dart';
 
 import './history_catagory_screen.dart';
@@ -296,13 +295,18 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             ),
           ),
           const SizedBox(height: 16),
-          Container(
+          Container( 
             width: 250,
             height: 45,
             margin: const EdgeInsets.symmetric(horizontal: 40),
             decoration: BoxDecoration(
               color: const Color(0xFF4C260B),
               borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                // Added border here
+                color: Color(0xFF99582a),
+                width: 1,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF4C260B).withOpacity(0.3),
@@ -320,7 +324,9 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => categoryScreens[categoryName] ?? CategoryScreen(categoryName: categoryName),
+                      builder: (context) =>
+                          categoryScreens[categoryName] ??
+                          CategoryScreen(categoryName: categoryName),
                     ),
                   );
                 },
@@ -361,9 +367,11 @@ class _CatagoryScreenState extends State<CatagoryScreen>
       width: 170,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: const Color(0xFF99582a).withOpacity(0.3), width: 1),
+          color: const Color(0xFF99582a).withOpacity(0.3),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF4C260B).withOpacity(0.1),
@@ -400,8 +408,11 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                         topRight: Radius.circular(12),
                       ),
                     ),
-                    child: const Icon(Icons.book,
-                        size: 40, color: Color(0xFF99582a)),
+                    child: const Icon(
+                      Icons.book,
+                      size: 40,
+                      color: Color(0xFF99582a),
+                    ),
                   ),
           ),
           Padding(
@@ -494,10 +505,10 @@ class _CatagoryScreenState extends State<CatagoryScreen>
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
-        border: Border.all(color: const Color(0xFF99582a), width: 2.0),
+        border: Border.all(color: Color(0xFF99582a), width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF4C260B).withOpacity(0.1),
+            color: Color(0xFF4C260B).withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 6,
             offset: const Offset(0, 2),
@@ -509,11 +520,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
         children: [
           _buildNavItem(Icons.home, 0, const HomeScreen()),
           _buildNavItem(Icons.search, 1, const CatagoryScreen()),
-          _buildSpecialNavItem(
-            "assets/images/deal.png",
-            2,
-            const BestDealsScreen(),
-          ),
+          _buildSpecialNavItem(Icons.add, 2),
           _buildNavItem(Icons.shopping_cart_outlined, 3, const CartScreen()),
           _buildNavItem(Icons.person_outline, 4, const ProfileScreen()),
         ],
@@ -551,17 +558,22 @@ class _CatagoryScreenState extends State<CatagoryScreen>
     );
   }
 
-  Widget _buildSpecialNavItem(String icon, int index, Widget page) {
+  Widget _buildSpecialNavItem(IconData icon, int index) {
     bool isSelected = _selectedIndex == index;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedIndex = index;
+          // Toggle logic: if already selected, deselect; otherwise select
+          if (_selectedIndex == index) {
+            _selectedIndex = -1; // No item selected
+          } else {
+            _selectedIndex = index;
+          }
         });
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: isSelected
@@ -570,23 +582,23 @@ class _CatagoryScreenState extends State<CatagoryScreen>
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: (isSelected
-                      ? const Color(0xFFB8860B)
-                      : const Color.fromARGB(255, 205, 125, 68))
-                  .withOpacity(0.4),
+              color:
+                  (isSelected
+                          ? const Color(0xFFB8860B)
+                          : const Color.fromARGB(255, 205, 125, 68))
+                      .withOpacity(0.4),
               spreadRadius: 0,
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: Image.asset(
+        child: Icon(
           icon,
           color: isSelected
               ? const Color.fromARGB(208, 255, 242, 226)
               : const Color.fromARGB(222, 76, 38, 11),
-          height: 30,
-          width: 30,
+          size: 30,
         ),
       ),
     );
@@ -596,7 +608,8 @@ class _CatagoryScreenState extends State<CatagoryScreen>
 class CategoryScreen extends StatelessWidget {
   final String categoryName;
 
-  const CategoryScreen({Key? key, required this.categoryName}) : super(key: key);
+  const CategoryScreen({Key? key, required this.categoryName})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {

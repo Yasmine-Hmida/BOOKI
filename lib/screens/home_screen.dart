@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import './cart_screen.dart';
 import './catagory_screen.dart';
-import './deals_screen.dart';
 import './profile_screen.dart';
 
 import './history_catagory_screen.dart';
@@ -26,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Animation<double>? _fadeAnimation;
   Animation<Offset>? _slideAnimation;
   int _selectedIndex = 0;
-  
+
   // Search bar controller
   final TextEditingController _searchController = TextEditingController();
 
@@ -54,8 +53,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _fadeController!.forward();
     _slideController!.forward();
   }
-  
-
 
   @override
   void dispose() {
@@ -117,19 +114,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               offset: const Offset(0, 2),
             ),
           ],
-          border: Border.all(
-            color: Color.fromARGB(255, 76, 38, 11),
-            width: 1,
-          ),
+          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
         ),
         child: TextField(
           controller: _searchController,
           decoration: InputDecoration(
             hintText: 'Search for your Desired Books...',
-            hintStyle: TextStyle(
-              color: Colors.black87,
-              fontSize: 16,
-            ),
+            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
             prefixIcon: Icon(
               Icons.search,
               color: Color.fromARGB(255, 177, 140, 81),
@@ -137,11 +128,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
-                    icon: Icon(
-                      Icons.clear,
-                      color: Color(0xFF99582a),
-                      size: 20,
-                    ),
+                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
                     onPressed: () {
                       setState(() {
                         _searchController.clear();
@@ -155,10 +142,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               vertical: 15,
             ),
           ),
-          style: TextStyle(
-            color: Color(0xFF4C260B),
-            fontSize: 16,
-          ),
+          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
           onChanged: (value) {
             setState(() {}); // Rebuild to show/hide clear button
           },
@@ -263,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           _buildNavItem(Icons.home, 0, const HomeScreen()),
           _buildNavItem(Icons.search, 1, const CatagoryScreen()),
-          _buildSpecialNavItem("assets/images/deal.png", 2, const BestDealsScreen()),
+          _buildSpecialNavItem(Icons.add, 2),
           _buildNavItem(Icons.shopping_cart_outlined, 3, const CartScreen()),
           _buildNavItem(Icons.person_outline, 4, const ProfileScreen()),
         ],
@@ -279,10 +263,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         setState(() {
           _selectedIndex = index;
         });
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -304,20 +285,22 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildSpecialNavItem(String icon, int index, Widget page) {
+  Widget _buildSpecialNavItem(IconData icon, int index) {
     bool isSelected = _selectedIndex == index;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedIndex = index;
+          // Toggle logic: if already selected, deselect; otherwise select
+          if (_selectedIndex == index) {
+            _selectedIndex = -1; // No item selected
+          } else {
+            _selectedIndex = index;
+          }
         });
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: isSelected
@@ -326,23 +309,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: (isSelected
-                      ? const Color(0xFFB8860B)
-                      : const Color.fromARGB(255, 205, 125, 68))
-                  .withOpacity(0.4),
+              color:
+                  (isSelected
+                          ? const Color(0xFFB8860B)
+                          : const Color.fromARGB(255, 205, 125, 68))
+                      .withOpacity(0.4),
               spreadRadius: 0,
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: Image.asset(
+        child: Icon(
           icon,
           color: isSelected
               ? const Color.fromARGB(208, 255, 242, 226)
               : const Color.fromARGB(222, 76, 38, 11),
-          height:30,
-          width:30
+          size: 30,
         ),
       ),
     );
@@ -412,125 +395,124 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   Widget _buildCircularCategoriesSection(double width) {
-  final categories = [
-    {
-      'name': 'Fiction',
-      'icon': "assets/images/science-fiction.png",
-      'color': const Color.fromARGB(255, 205, 125, 68),
-      'page': const FictionCategoryScreen(),
-    },
-    {
-      'name': 'Mystery',
-      'icon': "assets/images/mystery.png",
-      'color': const Color.fromARGB(255, 139, 69, 19),
-      'page': const MysteryCategoryScreen(),
-    },
-    {
-      'name': 'Romance',
-      'icon': "assets/images/romance.png",
-      'color': const Color(0xFFCD853F),
-      'page': const RomanceCategoryScreen(),
-    },
-    {
-      'name': 'Sci-Fi',
-      'icon': "assets/images/sci-fi.png",
-      'color': const Color(0xFFCD853F),
-      'page': const SciFiCategoryScreen(),
-    },
-    {
-      'name': "Biography",
-      'icon': "assets/images/biography.png",
-      'color': const Color(0xFFDEB887),
-      'page': const BiographyCategoryScreen(),
-    },
-    {
-      'name': 'History',
-      'icon': "assets/images/history.png",
-      'color': const Color.fromARGB(255, 139, 69, 19),
-      'page': const HistoryCategoryScreen(),
-    },
-  ];
+    final categories = [
+      {
+        'name': 'Fiction',
+        'icon': "assets/images/science-fiction.png",
+        'color': const Color.fromARGB(255, 205, 125, 68),
+        'page': const FictionCategoryScreen(),
+      },
+      {
+        'name': 'Mystery',
+        'icon': "assets/images/mystery.png",
+        'color': const Color.fromARGB(255, 139, 69, 19),
+        'page': const MysteryCategoryScreen(),
+      },
+      {
+        'name': 'Romance',
+        'icon': "assets/images/romance.png",
+        'color': const Color(0xFFCD853F),
+        'page': const RomanceCategoryScreen(),
+      },
+      {
+        'name': 'Sci-Fi',
+        'icon': "assets/images/sci-fi.png",
+        'color': const Color(0xFFCD853F),
+        'page': const SciFiCategoryScreen(),
+      },
+      {
+        'name': "Biography",
+        'icon': "assets/images/biography.png",
+        'color': const Color(0xFFDEB887),
+        'page': const BiographyCategoryScreen(),
+      },
+      {
+        'name': 'History',
+        'icon': "assets/images/history.png",
+        'color': const Color.fromARGB(255, 139, 69, 19),
+        'page': const HistoryCategoryScreen(),
+      },
+    ];
 
-  return Padding(
-    padding: const EdgeInsets.all(20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Explore Categories',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 139, 69, 19),
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Explore Categories',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 139, 69, 19),
+            ),
           ),
-        ),
-        const SizedBox(height: 20),
-        Wrap(
-          spacing: 16,
-          runSpacing: 16,
-          alignment: WrapAlignment.center,
-          children: categories.map((category) {
-            return SizedBox(
-              width: 105,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              category['page'] as Widget,
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 75,
-                      height: 75,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: category['color'] as Color,
-                        boxShadow: [
-                          BoxShadow(
-                            color: (category['color'] as Color)
-                                .withOpacity(0.3),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: const Offset(0, 2),
+          const SizedBox(height: 20),
+          Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            alignment: WrapAlignment.center,
+            children: categories.map((category) {
+              return SizedBox(
+                width: 105,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => category['page'] as Widget,
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          category['icon'] as String,
-                          color: Colors.white,
-                          width: 38,
-                          height: 38,
+                        );
+                      },
+                      child: Container(
+                        width: 75,
+                        height: 75,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: category['color'] as Color,
+                          boxShadow: [
+                            BoxShadow(
+                              color: (category['color'] as Color).withOpacity(
+                                0.3,
+                              ),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            category['icon'] as String,
+                            color: Colors.white,
+                            width: 38,
+                            height: 38,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    category['name'] as String,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 139, 69, 19),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                    const SizedBox(height: 8),
+                    Text(
+                      category['name'] as String,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 139, 69, 19),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    ),
-  );
-}
-
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildFeaturedBooks() {
     return Padding(

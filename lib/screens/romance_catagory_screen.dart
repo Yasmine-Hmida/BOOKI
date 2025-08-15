@@ -15,6 +15,9 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
   AnimationController? _fadeController;
   Animation<double>? _fadeAnimation;
 
+  // Search bar controller
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -48,12 +51,70 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
             children: [
               // Header Section with Background Image and Back Button
               _buildHeaderSection(),
+              const SizedBox(height: 10),
+              _buildSearchBar(),
               // Romance Books Section
               _buildRomanceBooksSection(),
               // Bottom padding
               const SizedBox(height: 60),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(195, 239, 221, 184),
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF4C260B).withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
+        ),
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: 'Search for your fav Romance Books...',
+            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 24,
+            ),
+            suffixIcon: _searchController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
+                    onPressed: () {
+                      setState(() {
+                        _searchController.clear();
+                      });
+                    },
+                  )
+                : null,
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+          ),
+          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
+          onChanged: (value) {
+            setState(() {}); // Rebuild to show/hide clear button
+          },
+          onSubmitted: (value) {
+            // Handle search functionality here
+            print('Searching for: $value');
+          },
         ),
       ),
     );
@@ -123,7 +184,7 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color.fromARGB(133, 253, 240, 213)
+                  color: const Color.fromARGB(133, 253, 240, 213),
                 ),
                 child: Icon(
                   Icons.arrow_back,
@@ -359,7 +420,11 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
           ),
           content: Text(
             'Do you want to buy "$bookName"?',
-            style: TextStyle(color: Color(0xFF99582a), fontSize: 16 , fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: Color(0xFF99582a),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           actions: [
             TextButton(
@@ -380,7 +445,10 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
                 // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Added "$bookName" to cart!' , style: TextStyle(fontSize: 18)),
+                    content: Text(
+                      'Added "$bookName" to cart!',
+                      style: TextStyle(fontSize: 18),
+                    ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),
                   ),
