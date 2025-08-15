@@ -6,6 +6,13 @@ import './home_screen.dart';
 import './deals_screen.dart';
 import './profile_screen.dart';
 
+import './history_catagory_screen.dart';
+import './sci-fi_catagory_screen.dart';
+import './mystery_catagory_screen.dart';
+import './fiction_catagory_screen.dart';
+import './romance_catagory_screen.dart';
+import './biography_catagory_screen.dart';
+
 class CatagoryScreen extends StatefulWidget {
   const CatagoryScreen({Key? key}) : super(key: key);
 
@@ -116,7 +123,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
         'books': [
           {
             'image': 'assets/images/loveStory.png',
-            'name': 'Love in Paris',
+            'name': 'Love Story',
             'price': '12.5 DT',
             'description': 'A passionate love story in the city of lights.',
           },
@@ -141,7 +148,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             'image': 'assets/images/theLostWorld.png',
             'name': 'The Lost World',
             'price': '15.0 DT',
-            'description': 'An epic adventure in uncharted \nterritories.',
+            'description': 'An epic adventure in uncharted territories.',
           },
           {
             'image': 'assets/images/theGreatGatsby.png',
@@ -225,7 +232,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
           },
           {
             'image': 'assets/images/medievalTimes.png',
-            'name': 'Medieval \nTimes',
+            'name': 'Medieval Times',
             'price': '19.0 DT',
             'description': 'Life in the age of knights and castles.',
           },
@@ -247,6 +254,16 @@ class _CatagoryScreenState extends State<CatagoryScreen>
     String categoryName,
     List<Map<String, String>> books,
   ) {
+    // Map category names to their respective screens
+    final categoryScreens = {
+      'Romance': const RomanceCategoryScreen(),
+      'Fiction': const FictionCategoryScreen(),
+      'Mystery': const MysteryCategoryScreen(),
+      'Sci-Fi': const SciFiCategoryScreen(),
+      'Biography': const BiographyCategoryScreen(),
+      'History': const HistoryCategoryScreen(),
+    };
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -278,6 +295,48 @@ class _CatagoryScreenState extends State<CatagoryScreen>
               }).toList(),
             ),
           ),
+          const SizedBox(height: 16),
+          Container(
+            width: 250,
+            height: 45,
+            margin: const EdgeInsets.symmetric(horizontal: 40),
+            decoration: BoxDecoration(
+              color: const Color(0xFF4C260B),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF4C260B).withOpacity(0.3),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => categoryScreens[categoryName] ?? CategoryScreen(categoryName: categoryName),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    'See More',
+                    style: TextStyle(
+                      color: Color.fromARGB(207, 255, 255, 255),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const SizedBox(height: 10),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
@@ -299,7 +358,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
 
   Widget _buildBookCard(Map<String, String> book) {
     return Container(
-      width: 150,
+      width: 170,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -402,9 +461,6 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                     color: Colors.transparent,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(16),
-                      onTap: () {
-                        print('Buy ${book['name']}');
-                      },
                       child: const Center(
                         child: Text(
                           'Buy',
@@ -415,6 +471,9 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                           ),
                         ),
                       ),
+                      onTap: () {
+                        print('Buy ${book['name']}');
+                      },
                     ),
                   ),
                 ),
@@ -528,6 +587,28 @@ class _CatagoryScreenState extends State<CatagoryScreen>
               : const Color.fromARGB(222, 76, 38, 11),
           height: 30,
           width: 30,
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryScreen extends StatelessWidget {
+  final String categoryName;
+
+  const CategoryScreen({Key? key, required this.categoryName}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          '$categoryName Category Page',
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF4C260B),
+          ),
         ),
       ),
     );

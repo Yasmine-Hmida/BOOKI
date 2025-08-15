@@ -7,10 +7,10 @@ class HistoryCategoryScreen extends StatefulWidget {
   const HistoryCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<HistoryCategoryScreen> createState() => _RomanceCategoryScreenState();
+  State<HistoryCategoryScreen> createState() => _HistoryCategoryScreenState();
 }
 
-class _RomanceCategoryScreenState extends State<HistoryCategoryScreen>
+class _HistoryCategoryScreenState extends State<HistoryCategoryScreen>
     with TickerProviderStateMixin {
   AnimationController? _fadeController;
   Animation<double>? _fadeAnimation;
@@ -123,7 +123,7 @@ class _RomanceCategoryScreenState extends State<HistoryCategoryScreen>
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color.fromARGB(133, 253, 240, 213)
+                  color: const Color.fromARGB(133, 253, 240, 213),
                 ),
                 child: Icon(
                   Icons.arrow_back,
@@ -139,62 +139,31 @@ class _RomanceCategoryScreenState extends State<HistoryCategoryScreen>
   }
 
   Widget _buildRomanceBooksSection() {
-    final romanceBooks = [
+    final historyBooks = [
       {
-        'image': 'assets/images/loveStory.png',
-        'name': 'Love Story',
-        'price': '12.5 DT',
-        'description':
-            'A passionate love story in the city of lights that will capture your heart.',
+        'image': 'assets/images/ancientCivilizations.png',
+        'name': 'Ancient Civilizations',
+        'price': '20.0 DT',
+        'description': 'Exploring the mysteries of the past.',
       },
       {
-        'image': 'assets/images/heartsEntwined.png',
-        'name': 'Hearts Entwined',
-        'price': '10.0 DT',
-        'description': 'Two souls destined to be together against all odds.',
+        'image': 'assets/images/medievalTimes.png',
+        'name': 'Medieval Times',
+        'price': '19.0 DT',
+        'description': 'Life in the age of knights and castles.',
       },
       {
-        'image': 'assets/images/summerRomance.png',
-        'name': 'Summer Romance',
-        'price': '9.5 DT',
-        'description': 'A perfect beach read for romance lovers everywhere.',
-      },
-      {
-        'image': 'assets/images/midnightKiss.png',
-        'name': 'Midnight Kiss',
-        'price': '11.5 DT',
-        'description': 'When love strikes at the stroke of midnight.',
-      },
-      {
-        'image': 'assets/images/enchantedGarden.png',
-        'name': 'Enchanted Garden',
-        'price': '13.0 DT',
-        'description': 'Love blooms in the most unexpected places.',
-      },
-      {
-        'image': 'assets/images/foreverYours.png',
-        'name': 'Forever Yours',
-        'price': '14.5 DT',
-        'description': 'A timeless tale of eternal love and devotion.',
-      },
-      {
-        'image': 'assets/images/secretAdmirer.png',
-        'name': 'Secret Admirer',
-        'price': '10.5 DT',
-        'description': 'Mystery meets romance in this thrilling love story.',
-      },
-      {
-        'image': 'assets/images/seasidePromises.png',
-        'name': 'Seaside Promise',
-        'price': '12.0 DT',
-        'description': 'Ocean waves carry promises of undying love.',
+        'image': 'assets/images/1776.jpg',
+        'name': '1776',
+        'price': '17.0 DT',
+        'description': 'Intense tale of those who marched with General George Washington.',
       },
     ];
 
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
-        children: romanceBooks.map((book) {
+        children: historyBooks.map((book) {
           return _buildHorizontalBookCard(book);
         }).toList(),
       ),
@@ -359,7 +328,11 @@ class _RomanceCategoryScreenState extends State<HistoryCategoryScreen>
           ),
           content: Text(
             'Do you want to buy "$bookName"?',
-            style: TextStyle(color: Color(0xFF99582a), fontSize: 16 , fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: Color(0xFF99582a),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           actions: [
             TextButton(
@@ -380,7 +353,10 @@ class _RomanceCategoryScreenState extends State<HistoryCategoryScreen>
                 // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Added "$bookName" to cart!' , style: TextStyle(fontSize: 18)),
+                    content: Text(
+                      'Added "$bookName" to cart!',
+                      style: TextStyle(fontSize: 18),
+                    ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),
                   ),
