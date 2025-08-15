@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './cart_screen.dart';
 import './catagory_screen.dart';
 import './profile_screen.dart';
+import './add_book_screen.dart';
 
 import './history_catagory_screen.dart';
 import './sci-fi_catagory_screen.dart';
@@ -291,13 +292,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return GestureDetector(
       onTap: () {
         setState(() {
-          // Toggle logic: if already selected, deselect; otherwise select
           if (_selectedIndex == index) {
-            _selectedIndex = -1; // No item selected
+            _selectedIndex = -1;
           } else {
             _selectedIndex = index;
           }
         });
+
+        // Navigate to AddBookScreen when tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddBookScreen()),
+        );
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

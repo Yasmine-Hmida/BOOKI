@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './cart_screen.dart';
 import './home_screen.dart';
 import './profile_screen.dart';
+import './add_book_screen.dart';
 
 import './history_catagory_screen.dart';
 import './sci-fi_catagory_screen.dart';
@@ -295,7 +296,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             ),
           ),
           const SizedBox(height: 16),
-          Container( 
+          Container(
             width: 250,
             height: 45,
             margin: const EdgeInsets.symmetric(horizontal: 40),
@@ -564,13 +565,18 @@ class _CatagoryScreenState extends State<CatagoryScreen>
     return GestureDetector(
       onTap: () {
         setState(() {
-          // Toggle logic: if already selected, deselect; otherwise select
           if (_selectedIndex == index) {
-            _selectedIndex = -1; // No item selected
+            _selectedIndex = -1;
           } else {
             _selectedIndex = index;
           }
         });
+
+        // Navigate to AddBookScreen when tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddBookScreen()),
+        );
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

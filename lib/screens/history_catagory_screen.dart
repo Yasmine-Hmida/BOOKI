@@ -377,7 +377,7 @@ class _HistoryCategoryScreenState extends State<HistoryCategoryScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Color.fromARGB(218, 239, 221, 184),
+          backgroundColor: Color.fromARGB(255, 239, 221, 184),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

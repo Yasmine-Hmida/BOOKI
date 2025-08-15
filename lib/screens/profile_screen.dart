@@ -6,6 +6,7 @@ import './catagory_screen.dart';
 import './home_screen.dart';
 import './login_screen.dart';
 import './edit_profile_screen.dart';
+import './add_book_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -478,13 +479,18 @@ class _ProfileScreenState extends State<ProfileScreen>
     return GestureDetector(
       onTap: () {
         setState(() {
-          // Toggle logic: if already selected, deselect; otherwise select
           if (_selectedIndex == index) {
-            _selectedIndex = -1; // No item selected
+            _selectedIndex = -1;
           } else {
             _selectedIndex = index;
           }
         });
+
+        // Navigate to AddBookScreen when tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddBookScreen()),
+        );
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    if (email == 'test@booki.com' && password == '123456') {
+    if (email == 'melissa@booki.com' && password == '123456') {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
               fontSize: 20,
             ),
           ),
-          backgroundColor: Color.fromARGB(255, 113, 168, 136),
+          backgroundColor: Color(0xFF99582a),
         ),
       );
       Navigator.pushReplacementNamed(context, '/home');
@@ -522,7 +522,6 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(
                 fontSize: 25,
                 color: Color.fromARGB(170, 255, 242, 226),
-                // fontFamily: 'RobotoSemiBold',
                 fontWeight: FontWeight.w800,
               ),
             ),

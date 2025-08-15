@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './home_screen.dart';
 import './profile_screen.dart';
 import './catagory_screen.dart';
+import './add_book_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -484,10 +485,10 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
-        border: Border.all(color: const Color(0xFF99582a), width: 2.0),
+        border: Border.all(color: Color(0xFF99582a), width: 2.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF4C260B).withOpacity(0.1),
+            color: Color(0xFF4C260B).withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 6,
             offset: const Offset(0, 2),
@@ -509,6 +510,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
 
   Widget _buildNavItem(IconData icon, int index, Widget page) {
     bool isSelected = _selectedIndex == index;
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -538,11 +540,22 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
 
   Widget _buildSpecialNavItem(IconData icon, int index) {
     bool isSelected = _selectedIndex == index;
+
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedIndex = _selectedIndex == index ? -1 : index;
+          if (_selectedIndex == index) {
+            _selectedIndex = -1;
+          } else {
+            _selectedIndex = index;
+          }
         });
+
+        // Navigate to AddBookScreen when tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddBookScreen()),
+        );
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -559,6 +572,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                           ? const Color(0xFFB8860B)
                           : const Color.fromARGB(255, 205, 125, 68))
                       .withOpacity(0.4),
+              spreadRadius: 0,
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
