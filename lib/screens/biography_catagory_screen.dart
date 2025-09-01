@@ -1,13 +1,13 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print
 
 import 'package:flutter/material.dart';
-import './home_screen.dart';
 
 class BiographyCategoryScreen extends StatefulWidget {
   const BiographyCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<BiographyCategoryScreen> createState() => _BiographyCategoryScreenState();
+  State<BiographyCategoryScreen> createState() =>
+      _BiographyCategoryScreenState();
 }
 
 class _BiographyCategoryScreenState extends State<BiographyCategoryScreen>
@@ -49,12 +49,16 @@ class _BiographyCategoryScreenState extends State<BiographyCategoryScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section with Background Image and Back Button
+              // Header Section
               _buildHeaderSection(),
+
               const SizedBox(height: 10),
+              // Search Bar Section
               _buildSearchBar(),
-              // Romance Books Section
-              _buildRomanceBooksSection(),
+
+              // Biography Books Section
+              _buildBiographyBooksSection(),
+
               // Bottom padding
               const SizedBox(height: 60),
             ],
@@ -64,7 +68,7 @@ class _BiographyCategoryScreenState extends State<BiographyCategoryScreen>
     );
   }
 
-Widget _buildSearchBar() {
+  Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: Container(
@@ -78,7 +82,7 @@ Widget _buildSearchBar() {
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
-          ], 
+          ],
           border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
         ),
         child: TextField(
@@ -109,7 +113,7 @@ Widget _buildSearchBar() {
           ),
           style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
           onChanged: (value) {
-            setState(() {}); // Rebuild to show/hide clear button
+            setState(() {});
           },
           onSubmitted: (value) {
             // Handle search functionality here
@@ -175,10 +179,7 @@ Widget _buildSearchBar() {
             left: 16,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                Navigator.pop(context);
               },
               child: Container(
                 padding: const EdgeInsets.all(4),
@@ -199,7 +200,7 @@ Widget _buildSearchBar() {
     );
   }
 
-  Widget _buildRomanceBooksSection() {
+  Widget _buildBiographyBooksSection() {
     final biographyBooks = [
       {
         'image': 'assets/images/greatLeaders.png',
@@ -246,18 +247,13 @@ Widget _buildSearchBar() {
       ),
       child: Row(
         children: [
-          // Book Image Section (Left) with added padding
+          // Book Image Section
           Container(
             margin: const EdgeInsets.only(left: 12),
             width: 120,
             height: 160,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
+              borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
                 image: AssetImage(book['image']!),
                 fit: BoxFit.cover,
@@ -277,7 +273,7 @@ Widget _buildSearchBar() {
                     child: Icon(Icons.book, size: 40, color: Color(0xFF99582a)),
                   ),
           ),
-          // Book Details Section (Right)
+          // Book Details Section
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -320,7 +316,7 @@ Widget _buildSearchBar() {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
-                  // Buy Now Button
+                  // "Buy Now" Button
                   Container(
                     width: double.infinity,
                     height: 36,
@@ -378,7 +374,7 @@ Widget _buildSearchBar() {
             'Purchase Book',
             style: TextStyle(
               color: Color(0xFF4C260B),
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.bold,
             ),
           ),
           content: Text(
@@ -386,7 +382,7 @@ Widget _buildSearchBar() {
             style: TextStyle(
               color: Color(0xFF99582a),
               fontSize: 16,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
             ),
           ),
           actions: [
@@ -397,7 +393,7 @@ Widget _buildSearchBar() {
               child: Text(
                 'Cancel',
                 style: TextStyle(
-                  color: Color(0xFF99582a),
+                  color: Color(0xFF4C260B),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -405,12 +401,14 @@ Widget _buildSearchBar() {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       'Added "$bookName" to cart!',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Color.fromARGB(208, 255, 242, 226),
+                        fontSize: 20,
+                      ),
                     ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),

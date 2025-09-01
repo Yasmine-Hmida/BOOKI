@@ -1,12 +1,14 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print, unused_import, unnecessary_import
 
 import 'dart:io';
-import 'package:booki/screens/cart_screen.dart';
-import 'package:booki/screens/catagory_screen.dart';
-import 'package:booki/screens/home_screen.dart';
-import 'package:booki/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Screens of the bottom Navigation
+import 'package:booki/screens/home_screen.dart';
+import 'package:booki/screens/catagory_screen.dart';
+import 'package:booki/screens/cart_screen.dart';
+import 'package:booki/screens/profile_screen.dart';
 
 class AddBookScreen extends StatefulWidget {
   const AddBookScreen({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _AddBookScreenState extends State<AddBookScreen>
 
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
-  int _selectedIndex = 2;
+  int _selectedIndex = 2; // Add Book tab selected
 
   @override
   void initState() {
@@ -56,13 +58,17 @@ class _AddBookScreenState extends State<AddBookScreen>
 
   void _pickImage() {
     setState(() {
-      _selectedImagePath = 'assets/images/placeholderBook.jpeg';
+      _selectedImagePath =
+          'assets/images/placeholderBook.jpeg'; // Book Cover Placeholder Image
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Image selected! (Demo mode)',
-          style: TextStyle(fontSize: 18),
+          'Image selected!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
         ),
         backgroundColor: Color(0xFF99582a),
         duration: Duration(seconds: 2),
@@ -80,6 +86,7 @@ class _AddBookScreenState extends State<AddBookScreen>
   }
 
   void _showSuccessDialog() {
+    // Book Added Successfully Alert
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -121,6 +128,7 @@ class _AddBookScreenState extends State<AddBookScreen>
           ],
         ),
         actions: [
+          // "Add another book" Button
           Container(
             width: double.infinity,
             child: ElevatedButton(
@@ -251,8 +259,12 @@ class _AddBookScreenState extends State<AddBookScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Book cover Image Section
             _buildImageUploadSection(),
+
             SizedBox(height: 24),
+
+            // Book Title Field
             _buildTextField(
               controller: _bookNameController,
               label: 'Book Title',
@@ -264,7 +276,10 @@ class _AddBookScreenState extends State<AddBookScreen>
                   ? 'Title must be at least 2 characters'
                   : null,
             ),
+
             SizedBox(height: 20),
+
+            // Author name field
             _buildTextField(
               controller: _authorController,
               label: 'Author Name',
@@ -273,11 +288,14 @@ class _AddBookScreenState extends State<AddBookScreen>
               validator: (v) =>
                   v == null || v.isEmpty ? 'Please enter author name' : null,
             ),
+
             SizedBox(height: 20),
+
+            // Price Field
             _buildTextField(
               controller: _priceController,
               label: 'Price (DT)',
-              hint: 'Enter the intial Price',
+              hint: 'Enter the Initial Price',
               icon: Icons.attach_money,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               validator: (v) {
@@ -289,7 +307,10 @@ class _AddBookScreenState extends State<AddBookScreen>
                     : null;
               },
             ),
+
             SizedBox(height: 20),
+
+            // Description Field
             _buildTextField(
               controller: _descriptionController,
               label: 'Description',
@@ -302,7 +323,10 @@ class _AddBookScreenState extends State<AddBookScreen>
                   ? 'Description must be at least 10 characters'
                   : null,
             ),
+
             SizedBox(height: 30),
+
+            // Submit Button
             _buildSubmitButton(),
           ],
         ),
@@ -384,6 +408,8 @@ class _AddBookScreenState extends State<AddBookScreen>
                           ),
                         ),
                       ),
+
+                      // The Edit Icon
                       Positioned(
                         top: 8,
                         right: 8,
@@ -463,13 +489,8 @@ class _AddBookScreenState extends State<AddBookScreen>
               ),
             ),
             errorStyle: TextStyle(
-              color: const Color.fromARGB(
-                255,
-                112,
-                7,
-                5,
-              ), // change error text color
-              fontSize: 16, // change error text size
+              color: const Color.fromARGB(255, 112, 7, 5), // Error text color
+              fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
             contentPadding: EdgeInsets.symmetric(
@@ -512,7 +533,7 @@ class _AddBookScreenState extends State<AddBookScreen>
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
-                          color: Colors.white,
+                          color: Color.fromARGB(170, 255, 242, 226),
                           strokeWidth: 2,
                         ),
                       ),
@@ -520,7 +541,7 @@ class _AddBookScreenState extends State<AddBookScreen>
                       Text(
                         'Submitting...',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromARGB(170, 255, 242, 226),
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                         ),
@@ -528,7 +549,7 @@ class _AddBookScreenState extends State<AddBookScreen>
                     ],
                   )
                 : Text(
-                    'List My Book',
+                    'Sell My Book',
                     style: TextStyle(
                       color: Color.fromARGB(170, 255, 242, 226),
                       fontWeight: FontWeight.w800,

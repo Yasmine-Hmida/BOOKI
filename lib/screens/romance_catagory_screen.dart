@@ -1,7 +1,5 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print
-
 import 'package:flutter/material.dart';
-import './home_screen.dart';
 
 class RomanceCategoryScreen extends StatefulWidget {
   const RomanceCategoryScreen({Key? key}) : super(key: key);
@@ -49,72 +47,20 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section with Background Image and Back Button
+              // Header Section
               _buildHeaderSection(),
+
               const SizedBox(height: 10),
+              // Search bar Section
               _buildSearchBar(),
+
               // Romance Books Section
               _buildRomanceBooksSection(),
+
               // Bottom padding
               const SizedBox(height: 60),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(195, 239, 221, 184),
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFF4C260B).withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
-        ),
-        child: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: 'Search for your fav Romance Books...',
-            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Color.fromARGB(255, 177, 140, 81),
-              size: 24,
-            ),
-            suffixIcon: _searchController.text.isNotEmpty
-                ? IconButton(
-                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
-                    onPressed: () {
-                      setState(() {
-                        _searchController.clear();
-                      });
-                    },
-                  )
-                : null,
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-          ),
-          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
-          onChanged: (value) {
-            setState(() {}); // Rebuild to show/hide clear button
-          },
-          onSubmitted: (value) {
-            // Handle search functionality here
-            print('Searching for: $value');
-          },
         ),
       ),
     );
@@ -175,10 +121,7 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
             left: 16,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                Navigator.pop(context);
               },
               child: Container(
                 padding: const EdgeInsets.all(4),
@@ -195,6 +138,58 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(195, 239, 221, 184),
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF4C260B).withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
+        ),
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: 'Search for your fav romance Books...',
+            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 24,
+            ),
+            suffixIcon: _searchController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
+                    onPressed: () {
+                      setState(() {
+                        _searchController.clear();
+                      });
+                    },
+                  )
+                : null,
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+          ),
+          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
+          onChanged: (value) {
+            setState(() {});
+          },
+        ),
       ),
     );
   }
@@ -283,18 +278,13 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
       ),
       child: Row(
         children: [
-          // Book Image Section (Left) with added padding
+          // Book Image Section
           Container(
             margin: const EdgeInsets.only(left: 12),
             width: 120,
             height: 160,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
+              borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
                 image: AssetImage(book['image']!),
                 fit: BoxFit.cover,
@@ -314,7 +304,7 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
                     child: Icon(Icons.book, size: 40, color: Color(0xFF99582a)),
                   ),
           ),
-          // Book Details Section (Right)
+          // Book Details Section
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -357,7 +347,7 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
-                  // Buy Now Button
+                  // "Buy Now" Button
                   Container(
                     width: double.infinity,
                     height: 36,
@@ -434,7 +424,7 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
               child: Text(
                 'Cancel',
                 style: TextStyle(
-                  color: Color(0xFF99582a),
+                  color: Color(0xFF4C260B),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -442,12 +432,14 @@ class _RomanceCategoryScreenState extends State<RomanceCategoryScreen>
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       'Added "$bookName" to cart!',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Color.fromARGB(208, 255, 242, 226),
+                        fontSize: 20,
+                      ),
                     ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),

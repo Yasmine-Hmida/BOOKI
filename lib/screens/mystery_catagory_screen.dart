@@ -1,7 +1,6 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print, file_names
 
 import 'package:flutter/material.dart';
-import './home_screen.dart';
 
 class MysteryCategoryScreen extends StatefulWidget {
   const MysteryCategoryScreen({Key? key}) : super(key: key);
@@ -49,12 +48,16 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section with Background Image and Back Button
+              // Header Section
               _buildHeaderSection(),
+
               const SizedBox(height: 10),
+              // Search Bar Section
               _buildSearchBar(),
-              // Romance Books Section
-              _buildRomanceBooksSection(),
+
+              // Mystery Books Section
+              _buildMysteryBooksSection(),
+
               // Bottom padding
               const SizedBox(height: 60),
             ],
@@ -90,7 +93,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
               Icons.search,
               color: Color.fromARGB(255, 177, 140, 81),
               size: 24,
-            ), 
+            ),
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
                     icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
@@ -109,7 +112,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
           ),
           style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
           onChanged: (value) {
-            setState(() {}); // Rebuild to show/hide clear button
+            setState(() {});
           },
           onSubmitted: (value) {
             // Handle search functionality here
@@ -175,10 +178,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
             left: 16,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                Navigator.pop(context);
               },
               child: Container(
                 padding: const EdgeInsets.all(4),
@@ -199,7 +199,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
     );
   }
 
-  Widget _buildRomanceBooksSection() {
+  Widget _buildMysteryBooksSection() {
     final mysteryBooks = [
       {
         'image': 'assets/images/theSilentWitness.png',
@@ -252,18 +252,13 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
       ),
       child: Row(
         children: [
-          // Book Image Section (Left) with added padding
+          // Book Image Section
           Container(
             margin: const EdgeInsets.only(left: 12),
             width: 120,
             height: 160,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
+              borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
                 image: AssetImage(book['image']!),
                 fit: BoxFit.cover,
@@ -283,7 +278,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
                     child: Icon(Icons.book, size: 40, color: Color(0xFF99582a)),
                   ),
           ),
-          // Book Details Section (Right)
+          // Book Details Section
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -326,7 +321,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
-                  // Buy Now Button
+                  // "Buy Now" Button
                   Container(
                     width: double.infinity,
                     height: 36,
@@ -403,7 +398,7 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
               child: Text(
                 'Cancel',
                 style: TextStyle(
-                  color: Color(0xFF99582a),
+                  color: Color(0xFF4C260B),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -411,12 +406,14 @@ class _MysteryCategoryScreenState extends State<MysteryCategoryScreen>
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       'Added "$bookName" to cart!',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Color.fromARGB(208, 255, 242, 226),
+                        fontSize: 20,
+                      ),
                     ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),

@@ -1,7 +1,6 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print, file_names
 
 import 'package:flutter/material.dart';
-import './home_screen.dart';
 
 class SciFiCategoryScreen extends StatefulWidget {
   const SciFiCategoryScreen({Key? key}) : super(key: key);
@@ -49,12 +48,16 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section with Background Image and Back Button
+              // Header Section
               _buildHeaderSection(),
+
               const SizedBox(height: 10),
+              // Search Bar Section
               _buildSearchBar(),
-              // Romance Books Section
-              _buildRomanceBooksSection(),
+
+              // SciFi Books Section
+              _buildSciFiBooksSection(),
+
               // Bottom padding
               const SizedBox(height: 60),
             ],
@@ -109,7 +112,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
           ),
           style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
           onChanged: (value) {
-            setState(() {}); // Rebuild to show/hide clear button
+            setState(() {});
           },
           onSubmitted: (value) {
             // Handle search functionality here
@@ -175,10 +178,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
             left: 16,
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                Navigator.pop(context);
               },
               child: Container(
                 padding: const EdgeInsets.all(4),
@@ -199,7 +199,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
     );
   }
 
-  Widget _buildRomanceBooksSection() {
+  Widget _buildSciFiBooksSection() {
     final sciFiBooks = [
       {
         'image': 'assets/images/galacticWars.png',
@@ -246,7 +246,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
       ),
       child: Row(
         children: [
-          // Book Image Section (Left) with added padding
+          // Book Image Section
           Container(
             margin: const EdgeInsets.only(left: 12),
             width: 120,
@@ -277,7 +277,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
                     child: Icon(Icons.book, size: 40, color: Color(0xFF99582a)),
                   ),
           ),
-          // Book Details Section (Right)
+          // Book Details Section
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -320,7 +320,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 12),
-                  // Buy Now Button
+                  // "Buy Now" Button
                   Container(
                     width: double.infinity,
                     height: 36,
@@ -397,7 +397,7 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
               child: Text(
                 'Cancel',
                 style: TextStyle(
-                  color: Color(0xFF99582a),
+                  color: Color(0xFF4C260B),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -405,12 +405,14 @@ class _SciFiCategoryScreenState extends State<SciFiCategoryScreen>
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Handle purchase logic here
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
                       'Added "$bookName" to cart!',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Color.fromARGB(208, 255, 242, 226),
+                        fontSize: 20,
+                      ),
                     ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),

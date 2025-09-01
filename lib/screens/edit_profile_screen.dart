@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'profile_screen.dart'; // Make sure you import your ProfileScreen here
+import 'profile_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -11,12 +11,11 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  bool _obscurePassword = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFDF0D5),
+      // The "<- Edit Profile" in the top
       appBar: AppBar(
         backgroundColor: const Color(0xFFFDF0D5),
         elevation: 0,
@@ -37,11 +36,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Column(
           children: [
             const SizedBox(height: 45),
-            // Profile Picture with Dark Brown Border
+
+            // Profile Picture + Edit Profile Image Icon
             Stack(
               alignment: Alignment.bottomRight,
               children: [
                 Container(
+                  width: 150,
+                  height: 150,
                   padding: const EdgeInsets.all(3),
                   decoration: BoxDecoration(
                     color: const Color(0xFF4C260B),
@@ -53,22 +55,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: ClipOval(
                       child: Image.asset(
                         'assets/images/profileImage.jpeg',
-                        width: 120,
-                        height: 120,
+                        width: 150,
+                        height: 150,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) =>
                             const Icon(
-                          Icons.person,
-                          size: 60,
-                          color: Color(0xFF99582a),
-                        ),
+                              Icons.person,
+                              size: 60,
+                              color: Color(0xFF99582a),
+                            ),
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  height: 35,
-                  width: 35,
+                  height: 40,
+                  width: 40,
                   decoration: BoxDecoration(
                     color: const Color(0xFF99582a),
                     shape: BoxShape.circle,
@@ -80,17 +82,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: IconButton(
                     icon: const Icon(
                       Icons.edit,
-                      size: 18,
+                      size: 20,
                       color: Color.fromARGB(196, 255, 255, 255),
                     ),
                     onPressed: () {
-                      // Change profile image
+                      // Change profile image function
                     },
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 90),
             // Name Field
             _buildTextField(
               'Name',
@@ -98,7 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               prefixIcon: Icons.person,
               keyboardType: TextInputType.name,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             // Email Field
             _buildTextField(
               'Email Address',
@@ -106,38 +108,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               prefixIcon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 16),
-            // Password Field
-            _buildTextField(
-              'Password',
-              '************',
-              obscureText: _obscurePassword,
-              prefixIcon: Icons.lock_outline,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                  color: const Color.fromARGB(255, 177, 140, 81),
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword;
-                  });
-                },
-              ),
-              keyboardType: TextInputType.visiblePassword,
-            ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 40),
             // Update Profile Button
             SizedBox(
               width: double.infinity,
-              height: 52,
+              height: 58,
               child: ElevatedButton(
                 onPressed: () {
                   // Navigate to ProfileScreen
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()),
+                      builder: (context) => const ProfileScreen(),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -149,7 +132,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: const Text(
                   'Update Profile',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w900,
                     color: Color.fromARGB(170, 255, 242, 226),
                   ),
@@ -166,7 +149,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget _buildTextField(
     String label,
     String hint, {
-    bool obscureText = false,
     Widget? suffixIcon,
     IconData? prefixIcon,
     TextInputType keyboardType = TextInputType.text,
@@ -185,7 +167,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         const SizedBox(height: 6),
         TextField(
-          obscureText: obscureText,
           keyboardType: keyboardType,
           autocorrect: false,
           textCapitalization: TextCapitalization.none,

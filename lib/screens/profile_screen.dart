@@ -1,12 +1,16 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import './cart_screen.dart';
-import './catagory_screen.dart';
+
+// Screens of the bottom Navigation
 import './home_screen.dart';
+import './catagory_screen.dart';
+import './add_book_screen.dart';
+import './cart_screen.dart';
+
+// Navigation Links
 import './login_screen.dart';
 import './edit_profile_screen.dart';
-import './add_book_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -53,8 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section
               const SizedBox(height: 20),
+              // Header Section
               _buildHeader(),
               const SizedBox(height: 30),
               // Profile Info Section
@@ -214,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF99582a), // brown color
+                      backgroundColor: Color(0xFF99582a),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 24,
                         vertical: 12,
@@ -255,7 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         'title': 'Languages',
         'icon': Icons.language,
         'onTap': () {
-          // Navigate to settings
+          // Navigate to Languages
           print('Navigate to Languages');
         },
       },
@@ -298,7 +302,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 ),
               ],
             ),
-            child: ListTile(
+            child: ListTile( // A widget that makes it easy to build rows in a list like in settings menus
               onTap: item['onTap'] as VoidCallback,
               leading: Container(
                 width: 40,
@@ -400,7 +404,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               child: Text(
                 'Logout',
                 style: TextStyle(
-                  color: const Color.fromARGB(240, 255, 255, 255),
+                  color: Color.fromARGB(208, 255, 242, 226),
                   fontWeight: FontWeight.w600,
                 ),
               ),

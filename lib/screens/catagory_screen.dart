@@ -1,11 +1,14 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import './cart_screen.dart';
-import './home_screen.dart';
-import './profile_screen.dart';
-import './add_book_screen.dart';
 
+// Screens of the bottom Navigation
+import './home_screen.dart';
+import './add_book_screen.dart';
+import './cart_screen.dart';
+import './profile_screen.dart';
+
+// Specific Catagories Screens
 import './history_catagory_screen.dart';
 import './sci-fi_catagory_screen.dart';
 import './mystery_catagory_screen.dart';
@@ -254,7 +257,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
     String categoryName,
     List<Map<String, String>> books,
   ) {
-    // Map category names to their respective screens
+    // Map category names to their respective screens when clicking the button: "See More"
     final categoryScreens = {
       'Romance': const RomanceCategoryScreen(),
       'Fiction': const FictionCategoryScreen(),
@@ -296,6 +299,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             ),
           ),
           const SizedBox(height: 16),
+          // The "See More" Button
           Container(
             width: 250,
             height: 45,
@@ -303,11 +307,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             decoration: BoxDecoration(
               color: const Color(0xFF4C260B),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                // Added border here
-                color: Color(0xFF99582a),
-                width: 1,
-              ),
+              border: Border.all(color: Color(0xFF99582a), width: 1),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF4C260B).withOpacity(0.3),
@@ -345,6 +345,8 @@ class _CatagoryScreenState extends State<CatagoryScreen>
             ),
           ),
           const SizedBox(height: 10),
+
+          // The line divider between each catagory
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             height: 2,
@@ -367,7 +369,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
     return Container(
       width: 170,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color.fromARGB(193, 255, 255, 255),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: const Color(0xFF99582a).withOpacity(0.3),
@@ -385,6 +387,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Image Container
           Container(
             height: 180,
             width: double.infinity,
@@ -399,7 +402,9 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                 onError: (exception, stackTrace) {},
               ),
             ),
-            child: book['image']!.isNotEmpty
+            child:
+                book['image']!
+                    .isNotEmpty // In case there is no image provided
                 ? null
                 : Container(
                     decoration: BoxDecoration(
@@ -454,6 +459,8 @@ class _CatagoryScreenState extends State<CatagoryScreen>
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 8),
+
+                // The "Buy" button
                 Container(
                   width: double.infinity,
                   height: 32,
@@ -611,6 +618,7 @@ class _CatagoryScreenState extends State<CatagoryScreen>
   }
 }
 
+// This will appear in case there is not category (fallback catagory section)
 class CategoryScreen extends StatelessWidget {
   final String categoryName;
 

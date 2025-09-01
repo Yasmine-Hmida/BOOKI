@@ -1,11 +1,14 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import './cart_screen.dart';
-import './catagory_screen.dart';
-import './profile_screen.dart';
-import './add_book_screen.dart';
 
+// Screens of the bottom Navigation
+import './catagory_screen.dart';
+import './add_book_screen.dart';
+import './cart_screen.dart';
+import './profile_screen.dart';
+
+// Catagories in the Homepage
 import './history_catagory_screen.dart';
 import './sci-fi_catagory_screen.dart';
 import './mystery_catagory_screen.dart';
@@ -25,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   AnimationController? _slideController;
   Animation<double>? _fadeAnimation;
   Animation<Offset>? _slideAnimation;
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // Home tab selected
 
   // Search bar controller
   final TextEditingController _searchController = TextEditingController();
@@ -76,81 +79,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header Section
               const SizedBox(height: 20),
+
+              // Header Section
               _buildHeader(),
+
               // Search Bar
               _buildSearchBar(),
+
               const SizedBox(height: 10),
+
               // Hero Section
               _buildHeroSection(),
+
               // Circular Categories Section
               _buildCircularCategoriesSection(width),
+
               // Featured Books
               _buildFeaturedBooks(),
-              // Special Offers
+
               const SizedBox(height: 20),
+
+              // Special Offers
               _buildSpecialOffers(),
+
               // Bottom padding
               const SizedBox(height: 60),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(195, 239, 221, 184),
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFF4C260B).withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
-          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
-        ),
-        child: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: 'Search for your Desired Books...',
-            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
-            prefixIcon: Icon(
-              Icons.search,
-              color: Color.fromARGB(255, 177, 140, 81),
-              size: 24,
-            ),
-            suffixIcon: _searchController.text.isNotEmpty
-                ? IconButton(
-                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
-                    onPressed: () {
-                      setState(() {
-                        _searchController.clear();
-                      });
-                    },
-                  )
-                : null,
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
-          ),
-          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
-          onChanged: (value) {
-            setState(() {}); // Rebuild to show/hide clear button
-          },
-          onSubmitted: (value) {
-            // Handle search functionality here
-            print('Searching for: $value');
-          },
         ),
       ),
     );
@@ -224,6 +180,58 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(195, 239, 221, 184),
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF4C260B).withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          border: Border.all(color: Color.fromARGB(255, 76, 38, 11), width: 1),
+        ),
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: 'Search for your Desired Books...',
+            hintStyle: TextStyle(color: Colors.black87, fontSize: 16),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color.fromARGB(255, 177, 140, 81),
+              size: 24,
+            ),
+            suffixIcon: _searchController.text.isNotEmpty
+                ? IconButton(
+                    icon: Icon(Icons.clear, color: Color(0xFF99582a), size: 20),
+                    onPressed: () {
+                      setState(() {
+                        _searchController.clear();
+                      });
+                    },
+                  )
+                : null,
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 15,
+            ),
+          ),
+          style: TextStyle(color: Color(0xFF4C260B), fontSize: 16),
+          onChanged: (value) {
+            setState(() {}); // Rebuild to show/hide clear button
+          },
+        ),
+      ),
+    );
+  }
+
   Widget _buildBottomNavigation() {
     return Container(
       height: 80,
@@ -270,6 +278,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
+          // Background of the Icon based on if it's selected or not
           color: isSelected
               ? const Color.fromARGB(208, 255, 242, 226)
               : Colors.transparent,
@@ -354,7 +363,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           image: AssetImage('assets/images/heroSectionImage.png'),
           fit: BoxFit.contain,
           colorFilter: ColorFilter.mode(
-            Colors.white.withOpacity(0.7), // Adjust opacity (0.0 to 1.0)
+            // Apply a white filter on the Image
+            Colors.white.withOpacity(0.7),
             BlendMode.modulate,
           ),
         ),
@@ -455,6 +465,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 20),
           Wrap(
+            // = flex-wrap
             spacing: 16,
             runSpacing: 16,
             alignment: WrapAlignment.center,
@@ -543,6 +554,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           SizedBox(
             height: 290,
             child: ListView.builder(
+              // ListView = Creates a scrollable, linear array of widgets that are created on demand
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (context, index) {
@@ -588,11 +600,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         color: const Color.fromARGB(193, 255, 255, 255),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          // Added border here
-          color: Color(0xFF99582a),
-          width: 0.5,
-        ),
+        border: Border.all(color: Color(0xFF99582a), width: 0.5),
         boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(255, 205, 125, 68).withOpacity(0.2),
@@ -615,8 +623,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               image: DecorationImage(
                 image: AssetImage(images[index % images.length]),
                 fit: BoxFit.cover,
-                onError: (exception, stackTrace) =>
-                    const Icon(Icons.book, size: 48, color: Colors.white),
+                onError: (exception, stackTrace) => const Icon(
+                  Icons.book,
+                  size: 48,
+                  color: Colors.white,
+                ), // Fallback Icon
               ),
             ),
           ),
@@ -633,7 +644,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     fontSize: 14,
                   ),
                   maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow
+                      .ellipsis, // Ellipsis = … (three dots) in case of the overflowing
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -682,7 +694,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           image: AssetImage('assets/images/specialOfferImage.png'),
           fit: BoxFit.contain,
           colorFilter: ColorFilter.mode(
-            Colors.white.withOpacity(0.6), // Adjust opacity (0.0 to 1.0)
+            Colors.white.withOpacity(0.6),
             BlendMode.modulate,
           ),
         ),
@@ -714,7 +726,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'Get to even 40% OFF !',
+                          'Get to Even 40% OFF!',
                           style: TextStyle(
                             fontSize: 28,
                             color: Color.fromARGB(214, 125, 61, 15),

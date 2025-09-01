@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-            'Login Done Successfully! Welcome to Booki',
+            'Login Done Successfully! Welcome to BOOKI',
             style: TextStyle(
               color: Color.fromARGB(208, 255, 242, 226),
               fontSize: 20,
@@ -64,7 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Color(0xFF99582a),
         ),
       );
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(
+        context,
+        '/home',
+      ); // Redirection to the Homepage
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -85,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(
-          'Google Sign In - Feature Coming Soon!',
+          'Google Sign In',
           style: TextStyle(
             color: Color.fromARGB(208, 255, 242, 226),
             fontSize: 20,
@@ -100,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(
-          'Facebook Sign In - Feature Coming Soon!',
+          'Facebook Sign In',
           style: TextStyle(
             color: Color.fromARGB(208, 255, 242, 226),
             fontSize: 20,
@@ -121,13 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pushNamed(context, '/register');
   }
 
+  // Our Main Widget
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final width = size.width;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset:
+          true, // To avoid lack of space issues with the keyboard
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -143,12 +148,15 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         child: SafeArea(
+          // <- A widget that makes sure your UI content doesn’t get hidden behind system UI elements
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: width * 0.08),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ), // Allow us to have space between the page sections
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -208,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 4),
                 const Text(
-                  'Your gateway to the best book offers',
+                  'Your Gateway to the Best Book Offers',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
@@ -221,7 +229,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 _buildLoginCard(width),
                 _buildSocialLoginSection(),
                 _buildRegisterLink(),
-                SizedBox(height: MediaQuery.of(context).viewInsets.bottom > 0 ? 20 : 0),
+                SizedBox(
+                  height: MediaQuery.of(context).viewInsets.bottom > 0 ? 20 : 0,
+                ),
               ],
             ),
           ),
@@ -270,119 +280,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialLoginSection() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        children: [
-          // "Or" divider
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: const Color.fromARGB(150, 76, 38, 11),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14),
-                child: Text(
-                  'Or',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'RobotoLight',
-                    fontWeight: FontWeight.w900,
-                    color: Color.fromARGB(255, 76, 38, 11),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: const Color.fromARGB(150, 76, 38, 11),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-         
-          // Social login text
-          const Text(
-            'Sign In with Google or Facebook',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'RobotoLight',
-              fontWeight: FontWeight.w900,
-              color: Color.fromARGB(255, 76, 38, 11),
-            ),
-          ),
-          const SizedBox(height: 20),
-         
-          // Social login buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Google button
-              Container(
-                margin: const EdgeInsets.only(right: 12),
-                child: ElevatedButton(
-                  onPressed: _handleGoogleSignIn,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
-                    foregroundColor: const Color(0xFF99582a),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(
-                        color: Color.fromARGB(255, 177, 140, 81),
-                        width: 1,
-                      ),
-                    ),
-                    elevation: 0,
-                    padding: const EdgeInsets.all(16),
-                    minimumSize: const Size(60, 60),
-                  ),
-                  child: const Icon(
-                    Icons.g_mobiledata_rounded,
-                    size: 32,
-                    color: Color(0xFF99582a),
-                  ),
-                ),
-              ),
-             
-              // Facebook button
-              Container(
-                margin: const EdgeInsets.only(left: 12),
-                child: ElevatedButton(
-                  onPressed: _handleFacebookSignIn,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
-                    foregroundColor: const Color(0xFF99582a),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      side: const BorderSide(
-                        color: Color.fromARGB(255, 177, 140, 81),
-                        width: 1,
-                      ),
-                    ),
-                    elevation: 0,
-                    padding: const EdgeInsets.all(16),
-                    minimumSize: const Size(60, 60),
-                  ),
-                  child: const Icon(
-                    Icons.facebook,
-                    size: 32,
-                    color: Color(0xFF99582a),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildEmailField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,6 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(
+                // Affects how the edge of a widget looks
                 color: Color.fromARGB(201, 231, 111, 81),
                 width: 1,
               ),
@@ -448,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Password',
           style: TextStyle(
             color: Colors.black87,
-            fontSize: 18,
+            fontSize: 20,
             fontFamily: 'RobotoLight',
             fontWeight: FontWeight.w900,
           ),
@@ -472,7 +370,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             suffixIcon: IconButton(
               icon: Icon(
-                _showPassword ? Icons.visibility : Icons.visibility_off,
+                _showPassword ? Icons.visibility_off : Icons.visibility,
                 color: const Color.fromARGB(255, 177, 140, 81),
               ),
               onPressed: _toggleShowPassword,
@@ -531,6 +429,120 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _buildSocialLoginSection() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        children: [
+          // "Or" divider
+          Row(
+            children: [
+              Expanded(
+                // It will appear as the line that centers the "Or"
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14),
+                child: Text(
+                  'Or',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'RobotoLight',
+                    fontWeight: FontWeight.w900,
+                    color: Color.fromARGB(255, 76, 38, 11),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  color: const Color.fromARGB(150, 76, 38, 11),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+
+          // Social login text
+          const Text(
+            'Sign In with Google or Facebook',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'RobotoLight',
+              fontWeight: FontWeight.w900,
+              color: Color.fromARGB(255, 76, 38, 11),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          // Social login buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Google button
+              Container(
+                margin: const EdgeInsets.only(right: 12),
+                child: ElevatedButton(
+                  onPressed: _handleGoogleSignIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.g_mobiledata_rounded,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+
+              // Facebook button
+              Container(
+                margin: const EdgeInsets.only(left: 12),
+                child: ElevatedButton(
+                  onPressed: _handleFacebookSignIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(195, 239, 221, 184),
+                    foregroundColor: const Color(0xFF99582a),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 177, 140, 81),
+                        width: 1,
+                      ),
+                    ),
+                    elevation: 0,
+                    padding: const EdgeInsets.all(16),
+                    minimumSize: const Size(60, 60),
+                  ),
+                  child: const Icon(
+                    Icons.facebook,
+                    size: 32,
+                    color: Color(0xFF99582a),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildRegisterLink() {
     return GestureDetector(
       onTap: _navigateToRegister,
@@ -565,6 +577,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
+    // Cleanup function
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();

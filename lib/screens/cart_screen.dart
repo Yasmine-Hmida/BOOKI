@@ -1,10 +1,12 @@
 // ignore_for_file: use_super_parameters, deprecated_member_use, sort_child_properties_last, sized_box_for_whitespace, avoid_returning_null_for_void, avoid_print
 
 import 'package:flutter/material.dart';
+
+// Screens of the bottom Navigation
 import './home_screen.dart';
-import './profile_screen.dart';
 import './catagory_screen.dart';
 import './add_book_screen.dart';
+import './profile_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -39,12 +41,12 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  // Sample cart items
+  // Sample cart Items
   List<Map<String, dynamic>> cartItems = [
     {
       'id': 1,
       'image': 'assets/images/loveStory.png',
-      'name': 'Love in Paris',
+      'name': 'Love Story',
       'author': 'Marie Claire',
       'price': 12.5,
     },
@@ -70,9 +72,15 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('Item removed from cart'),
-        backgroundColor: const Color(0xFF99582a),
-        duration: const Duration(seconds: 2),
+        content: Text(
+          'Item removed from cart!',
+          style: TextStyle(
+            color: Color.fromARGB(208, 255, 242, 226),
+            fontSize: 20,
+          ),
+        ),
+        backgroundColor: Color(0xFF99582a),
+        duration: Duration(seconds: 2),
       ),
     );
   }
@@ -82,8 +90,11 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
     if (cartItems.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Your cart is empty'),
-          backgroundColor: Colors.red[400],
+          content: const Text(
+            'Your cart is empty',
+            style: TextStyle(color: Color.fromARGB(255, 112, 7, 5)),
+          ),
+          backgroundColor: Color(0xFF99582a),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -133,7 +144,10 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                   const SnackBar(
                     content: Text(
                       'Proceeding to checkout...',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        color: Color.fromARGB(208, 255, 242, 226),
+                        fontSize: 20,
+                      ),
                     ),
                     backgroundColor: Color(0xFF99582a),
                     duration: Duration(seconds: 2),
@@ -272,7 +286,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 10),
           const Text(
-            'Add some books to get started!',
+            'Add some books to the Shopping Cart!',
             style: TextStyle(fontSize: 16, color: Color(0xFF99582a)),
           ),
         ],
@@ -396,7 +410,7 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
               ),
               child: const Icon(
                 Icons.delete_outline,
-                color: Color.fromARGB(218, 255, 255, 255),
+                color: Color.fromARGB(193, 255, 255, 255),
                 size: 20,
               ),
             ),
