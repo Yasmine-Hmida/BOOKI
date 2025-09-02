@@ -31,10 +31,9 @@
 - A device or emulator for testing.
 
 ### 🔧 Installation & Setup
-Clone the repository:
 ```bash
+# Clone the repository:
 git clone https://github.com/your-username/BOOKI.git
-
 # Navigate into the project folder:
 cd BOOKI
 # Get dependencies:
