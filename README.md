@@ -1,6 +1,6 @@
 # BOOKI
 
-**BOOKI** is a Flutter application designed to buy brand-new books from local libraries, or even sell your own books, always at the best value possible! It provides a clean and an intuitive interface with smooth performance across mobile platforms.
+**BOOKI** is a **Flutter** application designed to buy brand-new books from local libraries, or even sell your own books, always at the best value possible! It provides a clean and an intuitive interface with smooth performance across mobile platforms.
 
 ## 🚀 Features
 - Browse and search books easily by catagory.
@@ -34,9 +34,12 @@
 ```bash
 # Clone the repository:
 git clone https://github.com/your-username/BOOKI.git
+
 # Navigate into the project folder:
 cd BOOKI
+
 # Get dependencies:
 flutter pub get
+
 # Run the App:
 flutter run
